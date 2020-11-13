@@ -13,7 +13,7 @@
 <fmt:setBundle basename="resource"/>
 <html>
 <head>
-  <%@include file="jspf/scriptsBootstrap.jspf" %>
+  <%@include file="app/jspf/scriptsBootstrap.jspf" %>
   <style>
     body {
       margin: 0;

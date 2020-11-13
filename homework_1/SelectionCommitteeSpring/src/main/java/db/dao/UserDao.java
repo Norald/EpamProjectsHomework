@@ -16,7 +16,7 @@ import java.util.*;
  * Data access object for user entities.
  * @author Vladislav Prokopenko
  */
-@Component
+@Service
 public class UserDao {
     private static final Logger LOG = LogManager.getLogger(UserDao.class.getName());
 

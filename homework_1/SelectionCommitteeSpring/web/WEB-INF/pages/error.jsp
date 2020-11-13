@@ -15,7 +15,7 @@
 <fmt:setBundle basename="resource"/>
 <html>
 <head>
-    <%@include file="jspf/scriptsBootstrap.jspf" %>
+    <%@include file="app/jspf/scriptsBootstrap.jspf" %>
     <style>
         .clearfix:before,
         .clearfix:after {

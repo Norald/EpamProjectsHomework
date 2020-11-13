@@ -10,7 +10,7 @@
 
 <html>
 <head>
-    <%@include file="jspf/scriptsBootstrap.jspf" %>
+    <%@include file="app/jspf/scriptsBootstrap.jspf" %>
     <style>
         body {
             margin: 0;
@@ -42,7 +42,7 @@
         <div id="login-row" class="row justify-content-center align-items-center">
             <div id="login-column" class="col-md-6">
                 <div id="login-box" class="col-md-12">
-                    <form id="login-form" class="form" action="/registration" method="post">
+                    <form id="login-form" class="form" action="/doRegistration" method="post">
                         <h3 class="text-center text-info"><fmt:message key="start.text.registration" /></h3>
                         <div class="form-group">
                             <label for="username" class="text-info"><fmt:message key="registration.enter.email" /></label><br>

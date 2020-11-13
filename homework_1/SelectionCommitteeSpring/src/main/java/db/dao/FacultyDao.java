@@ -5,6 +5,8 @@ import model.SubjectExam;
 import db.DBManager;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -16,10 +18,14 @@ import java.util.TreeSet;
  * Data access object for faculties entities.
  * @author Vladislav Prokopenko
  */
+
+@Service
 public class FacultyDao {
 
     private static final Logger LOG = LogManager.getLogger(FacultyDao.class.getName());
 
+    public FacultyDao() {
+    }
 
     /**
      * Set admission status DISAPPROVED
