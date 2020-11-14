@@ -9,7 +9,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page isELIgnored="false" %>
-<fmt:setLocale value="${sessionScope.get(\"language\")}" />
+<fmt:setLocale value="${sessionScope.get(\"language\")}"/>
 <fmt:setBundle basename="resource"/>
 <html>
 <head>
@@ -20,7 +20,6 @@
 <%@include file="/WEB-INF/pages/app/jspf/navbar_admin.jspf" %>
 
 <h3 class="text-center text-info"><fmt:message key="home.admin"/></h3>
-
 
 
 </body>

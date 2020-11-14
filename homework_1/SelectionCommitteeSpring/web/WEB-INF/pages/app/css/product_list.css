@@ -10,12 +10,11 @@
 
     padding: 6px;
 
-    -webkit-box-shadow: 0 1px 4px 0 rgba(21,180,255,0.5);
+    -webkit-box-shadow: 0 1px 4px 0 rgba(21, 180, 255, 0.5);
 
-    box-shadow: 0 1px 1px 0 rgba(21,180,255,0.5);
+    box-shadow: 0 1px 1px 0 rgba(21, 180, 255, 0.5);
 
 }
-
 
 
 .prod-info-main .product-image {
@@ -37,7 +36,6 @@
 }
 
 
-
 .prod-info-main .product-deatil {
 
     border-bottom: 1px solid #dfe5e9;
@@ -53,7 +51,6 @@
     background: #fff
 
 }
-
 
 
 .product-content .product-deatil h5 a {
@@ -73,7 +70,6 @@
 }
 
 
-
 .prod-info-main .product-deatil h5 a span {
 
     color: #9aa7af;
@@ -83,7 +79,6 @@
     font-size: 13px
 
 }
-
 
 
 .prod-info-main .product-deatil span.tag1 {
@@ -111,13 +106,11 @@
 }
 
 
-
 .prod-info-main .product-deatil span.sale {
 
     background-color: #21c2f8
 
 }
-
 
 
 .prod-info-main .product-deatil span.discount {
@@ -127,13 +120,11 @@
 }
 
 
-
 .prod-info-main .product-deatil span.hot {
 
     background-color: #fa9442
 
 }
-
 
 
 .prod-info-main .description {
@@ -149,13 +140,11 @@
 }
 
 
-
 .prod-info-main .product-info {
 
     padding: 11px 19px 10px 20px
 
 }
-
 
 
 .prod-info-main .product-info a.add-to-cart {
@@ -169,7 +158,6 @@
 }
 
 
-
 .prod-info-main name.a {
 
     padding: 5px 10px;
@@ -177,7 +165,6 @@
     margin-left: 16px
 
 }
-
 
 
 .product-info.smart-form .btn {
@@ -189,7 +176,6 @@
     margin-top: -10px
 
 }
-
 
 
 .load-more-btn {
@@ -211,13 +197,9 @@
 }
 
 
-
 .product-block .product-deatil p.price-container span,
-
 .prod-info-main .product-deatil p.price-container span,
-
 .shipping table tbody tr td p.price-container span,
-
 .shopping-items table tbody tr td p.price-container span {
 
     color: #21c2f8;
@@ -231,15 +213,12 @@
 }
 
 
-
 .product-info.smart-form .rating label {
 
-    margin-top:15px;
-
+    margin-top: 15px;
 
 
 }
-
 
 
 .prod-wrap .product-image span.tag2 {
@@ -267,7 +246,6 @@
 }
 
 
-
 .prod-wrap .product-image span.tag3 {
 
     position: absolute;
@@ -293,7 +271,6 @@
 }
 
 
-
 .prod-wrap .product-image span.sale {
 
     background-color: #57889c;
@@ -301,13 +278,11 @@
 }
 
 
-
 .prod-wrap .product-image span.hot {
 
     background-color: #a90329;
 
 }
-
 
 
 .prod-wrap .product-image span.special {
@@ -323,8 +298,7 @@
 }
 
 
-
-.shop-btn>span {
+.shop-btn > span {
 
     background: #a90329;
 
@@ -338,7 +312,7 @@
 
     border-radius: 50%;
 
-    padding: 2px 4px 3px!important;
+    padding: 2px 4px 3px !important;
 
     text-align: center;
 
@@ -353,13 +327,11 @@
 }
 
 
-
 .product-deatil hr {
 
-    padding: 0 0 5px!important
+    padding: 0 0 5px !important
 
 }
-
 
 
 .product-deatil .glyphicon {
@@ -369,13 +341,11 @@
 }
 
 
-
 .product-deatil .product-image {
 
     border-right: 0px solid #fff !important
 
 }
-
 
 
 .product-deatil .name {
@@ -387,7 +357,6 @@
 }
 
 
-
 .product-deatil .name small {
 
     display: block
@@ -395,13 +364,11 @@
 }
 
 
-
 .product-deatil .name a {
 
     margin-left: 0
 
 }
-
 
 
 .product-deatil .price-container {
@@ -413,9 +380,7 @@
     font-weight: 300;
 
 
-
 }
-
 
 
 .product-deatil .price-container small {
@@ -423,20 +388,17 @@
     font-size: 12px;
 
 
-
 }
-
 
 
 .product-deatil .fa-2x {
 
-    font-size: 16px!important
+    font-size: 16px !important
 
 }
 
 
-
-.product-deatil .fa-2x>h5 {
+.product-deatil .fa-2x > h5 {
 
     font-size: 12px;
 
@@ -445,15 +407,12 @@
 }
 
 
-
-.product-deatil .fa-2x+a,
-
-.product-deatil .fa-2x+a+a {
+.product-deatil .fa-2x + a,
+.product-deatil .fa-2x + a + a {
 
     font-size: 13px
 
 }
-
 
 
 .product-deatil .certified {
@@ -463,7 +422,6 @@
 }
 
 
-
 .product-deatil .certified ul {
 
     padding-left: 0
@@ -471,13 +429,11 @@
 }
 
 
-
 .product-deatil .certified ul li:not(first-child) {
 
     margin-left: -3px
 
 }
-
 
 
 .product-deatil .certified ul li {
@@ -491,13 +447,11 @@
 }
 
 
-
 .product-deatil .certified ul li:first-child {
 
     border-right: none
 
 }
-
 
 
 .product-deatil .certified ul li a {
@@ -515,7 +469,6 @@
 }
 
 
-
 .product-deatil .certified ul li a span {
 
     display: block;
@@ -531,7 +484,6 @@
 }
 
 
-
 .product-deatil .message-text {
 
     width: calc(100% - 70px)
@@ -539,8 +491,7 @@
 }
 
 
-
-@media only screen and (min-width:1024px) {
+@media only screen and (min-width: 1024px) {
 
     .prod-info-main div[class*=col-md-4] {
 

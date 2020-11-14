@@ -9,7 +9,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page isELIgnored="false" %>
-<fmt:setLocale value="${sessionScope.get(\"language\")}" />
+<fmt:setLocale value="${sessionScope.get(\"language\")}"/>
 <fmt:setBundle basename="resource"/>
 <html>
 <head>
@@ -21,33 +21,37 @@
 <%@include file="jspf/navbar.jspf" %>
 
 <c:if test="${empty sessionScope.get(\"admissions map\")}">
-    <h3 class="text-center text-info"><fmt:message key="home.have.no.admissions" /></h3>
+    <h3 class="text-center text-info"><fmt:message key="home.have.no.admissions"/></h3>
 </c:if>
 
 
 <c:if test="${not empty sessionScope.get(\"admissions map\")}">
-<h3 class="text-center text-info"><fmt:message key="home.your.admissions" /></h3>
-<div class="container-fluid">
-    <div class="row custyle">
-        <table class="table table-striped custab">
-            <thead>
-            <tr>
-                <th><fmt:message key="home.faculty.name" /></th>
-                <th><fmt:message key="home.date.admission" /> </th>
-                <th class="text-center"><fmt:message key="home.button.delete" /></th>
-            </tr>
-            </thead>
+    <h3 class="text-center text-info"><fmt:message key="home.your.admissions"/></h3>
+    <div class="container-fluid">
+        <div class="row custyle">
+            <table class="table table-striped custab">
+                <thead>
+                <tr>
+                    <th><fmt:message key="home.faculty.name"/></th>
+                    <th><fmt:message key="home.date.admission"/></th>
+                    <th class="text-center"><fmt:message key="home.button.delete"/></th>
+                </tr>
+                </thead>
                 <c:forEach var="admission" items="${sessionScope.get(\"admissions map\")}">
 
-                <tr>
-                    <td><c:out value="${admission.key}"/> </td>
-                    <td><c:out value="${admission.value}"/></td>
-                    <td class="text-center">  <form method="post" action="/app/admission_del"><button type="submit" name="faculty_name" value="${admission.key}" class="btn btn-info btn-xs"> <fmt:message key="home.button.delete" /></button></form>
-                </tr>
+                    <tr>
+                        <td><c:out value="${admission.key}"/></td>
+                        <td><c:out value="${admission.value}"/></td>
+                        <td class="text-center">
+                            <form method="post" action="/app/admission_del">
+                                <button type="submit" name="faculty_name" value="${admission.key}"
+                                        class="btn btn-info btn-xs"><fmt:message key="home.button.delete"/></button>
+                            </form>
+                    </tr>
                 </c:forEach>
-        </table>
+            </table>
+        </div>
     </div>
-</div>
 </c:if>
 
 </body>

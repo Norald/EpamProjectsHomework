@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 /**
  * Class for creating PDF statement.
+ *
  * @author Vladislav Prokopenko
  */
 @Service
@@ -52,47 +53,49 @@ public class CreateStatement {
 
     /**
      * Setting language of statement.
+     *
      * @param locale - localisation: 'uk' or 'en'
      */
-    public void setLanguageToLocale(String locale){
-        if(locale.equals("en")){
-            title="PDF statement for faculty admission";
-            sunbject="PDF statement for faculty admission ";
-            author="Admin ";
-            creator="Admin ";
-            report="PDF statement for ";
-            budgetPlaces="Count of budget places ";
-            totalPlaces="Count of total places ";
-            fullname="Full Name";
-            idn="Identification number";
-            examResult="Total exam result";
-            certificatePoint="Certificate point";
-            totalResult="Total result";
-            date="Date of statement ";
-        }else{
-            title="PDF звіт по вступу на факультет ";
-            sunbject="PDF звіт по вступу на факультет ";
-            author="Адмін ";
-            creator="Адмін ";
-            report="PDF звіт за факультетом: ";
-            budgetPlaces="Кількість бюджетних місць ";
-            totalPlaces="Загальна кількість місць ";
-            fullname="ПІБ";
-            idn="Ідентифікаційний номер";
-            examResult="Загальний результат по екзаменам";
-            certificatePoint="Середній бал атестату";
-            totalResult="Загальний результат";
-            date="Дата звіту ";
+    public void setLanguageToLocale(String locale) {
+        if (locale.equals("en")) {
+            title = "PDF statement for faculty admission";
+            sunbject = "PDF statement for faculty admission ";
+            author = "Admin ";
+            creator = "Admin ";
+            report = "PDF statement for ";
+            budgetPlaces = "Count of budget places ";
+            totalPlaces = "Count of total places ";
+            fullname = "Full Name";
+            idn = "Identification number";
+            examResult = "Total exam result";
+            certificatePoint = "Certificate point";
+            totalResult = "Total result";
+            date = "Date of statement ";
+        } else {
+            title = "PDF звіт по вступу на факультет ";
+            sunbject = "PDF звіт по вступу на факультет ";
+            author = "Адмін ";
+            creator = "Адмін ";
+            report = "PDF звіт за факультетом: ";
+            budgetPlaces = "Кількість бюджетних місць ";
+            totalPlaces = "Загальна кількість місць ";
+            fullname = "ПІБ";
+            idn = "Ідентифікаційний номер";
+            examResult = "Загальний результат по екзаменам";
+            certificatePoint = "Середній бал атестату";
+            totalResult = "Загальний результат";
+            date = "Дата звіту ";
         }
     }
 
 
     /**
      * Creating PDF document
-     * @param file name and path of file
+     *
+     * @param file    name and path of file
      * @param faculty faculty
      * @param results list of users results
-     * @param locale locale
+     * @param locale  locale
      * @return document
      */
     public Document createPDF(String file, Faculty faculty, ArrayList<UserFinalStatementResult> results, String locale) {
@@ -119,9 +122,9 @@ public class CreateStatement {
         } catch (FileNotFoundException e) {
 
 
-            LOG.error(e.getMessage(),e);
+            LOG.error(e.getMessage(), e);
         } catch (DocumentException e) {
-            LOG.error(e.getMessage(),e);
+            LOG.error(e.getMessage(), e);
         }
         return document;
 
@@ -130,6 +133,7 @@ public class CreateStatement {
 
     /**
      * Adding metadata
+     *
      * @param document document
      */
     private void addMetaData(Document document) {
@@ -141,9 +145,10 @@ public class CreateStatement {
 
     /**
      * Adding tittle page to document.
+     *
      * @param document document
-     * @param faculty faculty
-     * @param font font for document
+     * @param faculty  faculty
+     * @param font     font for document
      * @throws DocumentException
      */
     private void addTitlePage(Document document, Faculty faculty, Font font)
@@ -154,7 +159,7 @@ public class CreateStatement {
         preface.add(new Paragraph(sunbject, font));
 
         creteEmptyLine(preface, 1);
-        preface.add(new Paragraph(date+  new java.sql.Date(System.currentTimeMillis()) , font));
+        preface.add(new Paragraph(date + new java.sql.Date(System.currentTimeMillis()), font));
         preface.add(new Paragraph(report
                 + faculty.getName(), font));
 
@@ -167,6 +172,7 @@ public class CreateStatement {
 
     /**
      * Creating empty line in document
+     *
      * @param paragraph
      * @param number
      */
@@ -178,10 +184,11 @@ public class CreateStatement {
 
     /**
      * Creating table in document
+     *
      * @param document
      * @param results
      * @param faculty
-     * @param font font for table
+     * @param font     font for table
      * @throws DocumentException
      */
     private void createTable(Document document, ArrayList<UserFinalStatementResult> results, Faculty faculty, Font font) throws DocumentException {
@@ -217,12 +224,12 @@ public class CreateStatement {
         table.setHeaderRows(1);
 
         //showing only total amount of faculty places
-        if(results.size()<=faculty.getTotalAmount()){
+        if (results.size() <= faculty.getTotalAmount()) {
             for (int i = 0; i < results.size(); i++) {
                 table.setWidthPercentage(100);
                 table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.getDefaultCell().setVerticalAlignment(Element.ALIGN_MIDDLE);
-                table.addCell(String.valueOf(i+1));
+                table.addCell(String.valueOf(i + 1));
                 table.addCell(new Phrase(results.get(i).getFullname(), font));
                 table.addCell(String.valueOf(results.get(i).getIdn()));
                 table.addCell(String.valueOf(results.get(i).getTotalExamResult()));
@@ -230,12 +237,12 @@ public class CreateStatement {
                 table.addCell(String.valueOf(results.get(i).getTotalResult()));
             }
 
-        }else {
+        } else {
             for (int i = 0; i < faculty.getTotalAmount(); i++) {
                 table.setWidthPercentage(100);
                 table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.getDefaultCell().setVerticalAlignment(Element.ALIGN_MIDDLE);
-                table.addCell(String.valueOf(i+1));
+                table.addCell(String.valueOf(i + 1));
                 table.addCell(new Phrase(results.get(i).getFullname(), font));
                 table.addCell(String.valueOf(results.get(i).getIdn()));
                 table.addCell(String.valueOf(results.get(i).getTotalExamResult()));

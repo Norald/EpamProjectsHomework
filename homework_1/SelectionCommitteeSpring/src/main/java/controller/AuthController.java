@@ -1,15 +1,17 @@
 package controller;
 
-import db.dao.UserDao;
 import model.User;
 import model.UserRole;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -22,31 +24,30 @@ public class AuthController {
     private static final Logger LOG = LogManager.getLogger(AuthController.class.getName());
 
 
-    private UserDao userDao;
+    private UserService userService;
 
     @Autowired
-    public AuthController(UserDao userDao) {
-        this.userDao = userDao;
+    public AuthController(UserService userService) {
+        this.userService = userService;
     }
 
     /*First method on start application*/
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @GetMapping(value = "/")
     public ModelAndView main() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("start");
         return modelAndView;
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @RequestMapping(value = "/login")
     public ModelAndView login(HttpServletRequest request) {
 
         String login = request.getParameter("login");
         String password = request.getParameter("pass");
 
 
-
         //getting locale
-        String locale = (String)request.getSession().getAttribute("language");
+        String locale = (String) request.getSession().getAttribute("language");
         //getting locale for errors
         Locale current = new Locale(locale);
         ResourceBundle rb = ResourceBundle.getBundle("resource", current);
@@ -55,20 +56,20 @@ public class AuthController {
         //UserDao userDao = new UserDao();
         User user;
 
-        user = userDao.findUser(login, password);
+        user = userService.findUser(login, password);
 
 
-        if(user!=null){
+        if (user != null) {
 
             //check if user blocked
-            if(user.isBlocked()){
-                LOG.warn(login+" is blocked. Can`t login");
+            if (user.isBlocked()) {
+                LOG.warn(login + " is blocked. Can`t login");
 
                 ModelAndView modelAndView = new ModelAndView();
                 modelAndView.setViewName("error");
                 return modelAndView;
 
-            }else {
+            } else {
 
                 LOG.info("Success login");
 
@@ -86,8 +87,8 @@ public class AuthController {
 
                 return modelAndView;
             }
-        }else{//if wrong email or password
-            LOG.warn(login+" wrong email or password");
+        } else {//if wrong email or password
+            LOG.warn(login + " wrong email or password");
             request.setAttribute("error", rb.getString("error.wrong.email.or.password"));
             ModelAndView modelAndView = new ModelAndView();
             modelAndView.setViewName("error");
@@ -102,13 +103,13 @@ public class AuthController {
 
         String language = request.getParameter("lang");
 
-        if(!language.isEmpty()){
+        if (!language.isEmpty()) {
             LOG.info("Changing language");
             request.getSession().removeAttribute("language");
             request.getSession().setAttribute("language", language);
 
-            return new ModelAndView("redirect:"+request.getHeader("referer"));
-        }else{
+            return new ModelAndView("redirect:" + request.getHeader("referer"));
+        } else {
             LOG.warn("Language empty");
             request.setAttribute("error", "error");
             ModelAndView modelAndView = new ModelAndView();
@@ -117,7 +118,7 @@ public class AuthController {
         }
     }
 
-    @RequestMapping(value = "/doRegistration", method = RequestMethod.POST)
+    @PostMapping(value = "/doRegistration")
     public ModelAndView registration(HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView();
         String email = request.getParameter("email");
@@ -139,22 +140,22 @@ public class AuthController {
         String ukrainian_school_name = request.getParameter("school_name_ua");
 
 
-        ResourceBundle rb = ResourceBundle.getBundle("resource", new Locale((String)request.getSession().getAttribute("language")));
+        ResourceBundle rb = ResourceBundle.getBundle("resource", new Locale((String) request.getSession().getAttribute("language")));
 
 
         //check if we got empty parameters
-        if(email.isEmpty()||pass1.isEmpty()||pass2.isEmpty()||idn.isEmpty()||
-                english_name.isEmpty()||english_surname.isEmpty()|| english_patronymic.isEmpty()||english_city.isEmpty()||
-                english_region.isEmpty()||english_school_name.isEmpty()|| average_certificate_point.isEmpty()||ukrainian_name.isEmpty()||
-                ukrainian_surname.isEmpty()||ukrainian_patronymic.isEmpty()|| ukrainian_city.isEmpty()||ukrainian_region.isEmpty()||
-                ukrainian_school_name.isEmpty()){
+        if (email.isEmpty() || pass1.isEmpty() || pass2.isEmpty() || idn.isEmpty() ||
+                english_name.isEmpty() || english_surname.isEmpty() || english_patronymic.isEmpty() || english_city.isEmpty() ||
+                english_region.isEmpty() || english_school_name.isEmpty() || average_certificate_point.isEmpty() || ukrainian_name.isEmpty() ||
+                ukrainian_surname.isEmpty() || ukrainian_patronymic.isEmpty() || ukrainian_city.isEmpty() || ukrainian_region.isEmpty() ||
+                ukrainian_school_name.isEmpty()) {
 
             LOG.warn("Empty parameters in registration");
             request.setAttribute("error", rb.getString("error.registration.empty.parameters"));
             modelAndView.setViewName("error");
             return modelAndView;
-        }else {
-            User user = userDao.findUser(email);
+        } else {
+            User user = userService.findUser(email);
             //check if email already exists
             if (user != null) {
                 LOG.warn("Such email exists");
@@ -162,7 +163,7 @@ public class AuthController {
                 modelAndView.setViewName("error");
                 return modelAndView;
             }
-            user = userDao.findUserByIdn(idn);
+            user = userService.findUserByIdn(idn);
             //check if identification number already exists
             if (user != null) {
                 LOG.warn("Such idn exists");
@@ -176,9 +177,9 @@ public class AuthController {
                 return modelAndView;
             } else {
                 LOG.info("Registration with email is successfull " + email);
-                userDao.addUser(email, Long.parseLong(idn), pass1);
-                user = userDao.findUser(email);
-                userDao.addUserDetails(user.getId(), english_name, english_surname, english_patronymic, english_city, english_region, english_school_name, Integer.parseInt(average_certificate_point), ukrainian_name, ukrainian_surname, ukrainian_patronymic, ukrainian_city, ukrainian_region, ukrainian_school_name);
+                userService.addUser(email, Long.parseLong(idn), pass1);
+                user = userService.findUser(email);
+                userService.addUserDetails(user.getId(), english_name, english_surname, english_patronymic, english_city, english_region, english_school_name, Integer.parseInt(average_certificate_point), ukrainian_name, ukrainian_surname, ukrainian_patronymic, ukrainian_city, ukrainian_region, ukrainian_school_name);
                 modelAndView.setViewName("redirect:start");
                 return modelAndView;
             }
@@ -188,11 +189,11 @@ public class AuthController {
     @RequestMapping(value = "/app/logout")
     public ModelAndView logout(HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView();
-        String locale = (String)request.getSession().getAttribute("language");
+        String locale = (String) request.getSession().getAttribute("language");
 //        response.setContentType("text/html;charset=UTF-8");
 
-        LOG.info(request.getSession().getAttribute("email")+" success logout");
-        HttpSession session=request.getSession();
+        LOG.info(request.getSession().getAttribute("email") + " success logout");
+        HttpSession session = request.getSession();
         //kill session
         session.invalidate();
         modelAndView.setViewName("redirect:/start");
