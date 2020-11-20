@@ -1,4 +1,4 @@
-package integration;
+package com.epam.rd.integration;
 
 public class Order {
     private int id;

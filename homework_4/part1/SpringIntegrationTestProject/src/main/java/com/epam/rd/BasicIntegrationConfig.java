@@ -1,9 +1,8 @@
-package config;
+package com.epam.rd;
 
-import com.sun.org.apache.xpath.internal.operations.Or;
-import integration.Order;
-import integration.OrderState;
-import org.springframework.context.ConfigurableApplicationContext;
+import com.epam.rd.integration.Order;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -14,33 +13,26 @@ import org.springframework.integration.annotation.MessagingGateway;
 import org.springframework.integration.channel.DirectChannel;
 import org.springframework.integration.config.EnableIntegration;
 import org.springframework.integration.core.GenericSelector;
-import org.springframework.integration.core.MessageSource;
 import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.dsl.IntegrationFlows;
-import org.springframework.integration.dsl.Pollers;
-import org.springframework.integration.dsl.StandardIntegrationFlow;
-import org.springframework.integration.file.FileReadingMessageSource;
-import org.springframework.integration.file.transformer.FileToStringTransformer;
-import org.springframework.messaging.MessageChannel;
-import org.springframework.messaging.support.GenericMessage;
-import service.ReadFile;
 
-import java.io.File;
 import java.util.*;
 
 @Configuration
 @EnableIntegration
-@ComponentScan({"integration", "config", "service"})
+@ComponentScan({"com.epam.rd"})
 @IntegrationComponentScan
 public class BasicIntegrationConfig {
+    private final static Logger logger = LogManager.getLogger(BasicIntegrationConfig.class.getName());
 
     private final static String csvFile = "C:/Users/Влад/Desktop/input.csv";
 
-    @Bean("outputChannel1")
+    @Bean
     DirectChannel outputChannel1() {
         return new DirectChannel();
     }
-    @Bean("outputChannel2")
+
+    @Bean
     DirectChannel outputChannel2() {
         return new DirectChannel();
     }
@@ -64,7 +56,6 @@ public class BasicIntegrationConfig {
     @Bean
     public GenericSelector<Order> onlyGoodStatusOrders() {
         return new GenericSelector<Order> (){
-
             @Override
             public boolean accept(Order order) {
                 return !order.getState().contains("CANCELED");
@@ -85,10 +76,10 @@ public class BasicIntegrationConfig {
         ctx.refresh();
 
         DirectChannel outputChannel1 = ctx.getBean("outputChannel1", DirectChannel.class);
-        outputChannel1.subscribe(x -> System.out.println(x));
+        outputChannel1.subscribe(x -> logger.info(x));
 
         DirectChannel outputChannel2 = ctx.getBean("outputChannel2", DirectChannel.class);
-        outputChannel2.subscribe(x -> System.out.println(x));
+        outputChannel2.subscribe(x -> logger.info(x));
         // запускаем выполнение flow
         Set<Order> set = ctx.getBean(BasicIntegrationConfig.I.class).getOrders(BasicIntegrationConfig.csvFile);
         Iterator<Order> iterator = set.iterator();
