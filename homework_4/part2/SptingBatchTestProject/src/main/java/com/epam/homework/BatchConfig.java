@@ -11,23 +11,18 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
-import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
-import org.springframework.batch.core.launch.support.SimpleJobLauncher;
-import org.springframework.batch.core.repository.support.MapJobRepositoryFactoryBean;
 import org.springframework.batch.item.database.JdbcCursorItemReader;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
 
 @Configuration
 @EnableBatchProcessing
-public class BatchConfig{
+public class BatchConfig {
     private static final Logger LOG = LogManager.getLogger(BatchConfig.class.getName());
 
     @Autowired
@@ -51,21 +46,22 @@ public class BatchConfig{
     }
 
     @Bean
-    public JdbcCursorItemReader<User> reader(){
+    public JdbcCursorItemReader<User> reader() {
         JdbcCursorItemReader<User> reader = new JdbcCursorItemReader<User>();
-        reader.setDataSource(dataSource);
+        reader.setDataSource(dataSource());
         reader.setSql("SELECT * FROM user WHERE email");
         reader.setRowMapper(new UserRowMapper());
         return reader;
     }
 
     @Bean
-    public Processor processor(){
+    public Processor processor() {
         return new Processor();
     }
+
     @Bean
     public Step step1() {
-        return stepBuilderFactory.get("step1").<User, User> chunk(1)
+        return stepBuilderFactory.get("step1").<User, User>chunk(1)
                 .reader(reader())
                 .processor(processor())
                 .writer(new Writer())

@@ -39,8 +39,10 @@ public class BasicIntegrationConfig {
 
     @MessagingGateway
     public interface I {
-        @Gateway(requestChannel = "orderIFlow.input") // absent
+        @Gateway(requestChannel = "orderIFlow.input")
+            // absent
         void process(Order order);
+
         @Gateway(requestChannel = "outputChannel2")
         Set<Order> getOrders(String csvFile);
     }
@@ -55,7 +57,7 @@ public class BasicIntegrationConfig {
 
     @Bean
     public GenericSelector<Order> onlyGoodStatusOrders() {
-        return new GenericSelector<Order> (){
+        return new GenericSelector<Order>() {
             @Override
             public boolean accept(Order order) {
                 return !order.getState().contains("CANCELED");
@@ -83,7 +85,7 @@ public class BasicIntegrationConfig {
         // запускаем выполнение flow
         Set<Order> set = ctx.getBean(BasicIntegrationConfig.I.class).getOrders(BasicIntegrationConfig.csvFile);
         Iterator<Order> iterator = set.iterator();
-        while(iterator.hasNext()){
+        while (iterator.hasNext()) {
 
             Order order = iterator.next();
             ctx.getBean(BasicIntegrationConfig.I.class).process(order);

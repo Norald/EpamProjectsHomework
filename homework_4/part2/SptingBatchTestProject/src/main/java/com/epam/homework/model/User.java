@@ -1,8 +1,6 @@
 package com.epam.homework.model;
 
 /**
- * Class that describes user.
- *
  * @author Vladislav Prokopenko.
  */
 public class User {

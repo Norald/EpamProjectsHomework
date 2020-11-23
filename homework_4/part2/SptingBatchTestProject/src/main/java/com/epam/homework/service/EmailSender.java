@@ -2,10 +2,7 @@ package com.epam.homework.service;
 
 import com.sun.mail.smtp.SMTPTransport;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
-
 import javax.mail.*;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Date;
