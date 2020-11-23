@@ -1,6 +1,7 @@
 package com.epam.homework.service;
 
 import com.sun.mail.smtp.SMTPTransport;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.mail.*;
@@ -10,7 +11,7 @@ import javax.mail.internet.MimeMessage;
 import java.util.Date;
 import java.util.Properties;
 
-@Service
+@Component
 public class EmailSender {
 
     private static final String SMTP_SERVER = "smtp.gmail.com";
@@ -23,6 +24,8 @@ public class EmailSender {
     private static final String EMAIL_SUBJECT = "Test Send Email via SMTP";
     private static final String EMAIL_TEXT = "";
 
+    public EmailSender() {
+    }
 
     public void sendEmail(String receiver) throws MessagingException {
         Properties prop = System.getProperties();
