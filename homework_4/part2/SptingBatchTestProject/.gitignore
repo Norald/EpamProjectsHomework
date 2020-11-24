@@ -1,6 +1,5 @@
 HELP.md
 
-target/
 
 !.mvn/wrapper/maven-wrapper.jar
 
@@ -30,7 +29,6 @@ target/
 
 ### IntelliJ IDEA ###
 
-.idea
 
 *.iws
 
