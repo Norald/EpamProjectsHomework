@@ -1,7 +1,0 @@
-com\epam\homework\BatchConfig.class
-com\epam\homework\SpringBatchApplication.class
-com\epam\homework\step\Writer.class
-com\epam\homework\listener\JobCompletionListener.class
-com\epam\homework\controller\JobInvokerController.class
-com\epam\homework\step\Processor.class
-com\epam\homework\step\Reader.class
