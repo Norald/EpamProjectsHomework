@@ -1,0 +1,21 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd ">
+
+
+<aop:config>
+        <aop:pointcut id="timed" expression="@annotation(com.homework.epam.annotation.Timed)"/>
+        <aop:aspect ref="logging">
+            <aop:around method="aroundAdvice" pointcut-ref="timed"/>
+        </aop:aspect>
+    </aop:config>
+
+    <bean id="logging" class="com.homework.epam.aspect.Logging"/>
+    <bean id="randomNotebook" class="com.homework.epam.service.impl.RandomNotebook" />
+
+
+</beans>
