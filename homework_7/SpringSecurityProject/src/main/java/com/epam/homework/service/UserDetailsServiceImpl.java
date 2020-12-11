@@ -22,7 +22,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private static final Logger LOG = LogManager.getLogger(UserDetailsServiceImpl.class.getName());
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
