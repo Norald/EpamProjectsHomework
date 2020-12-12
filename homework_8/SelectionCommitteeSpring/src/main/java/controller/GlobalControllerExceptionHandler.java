@@ -1,10 +1,8 @@
-package testing.controller;
+package controller;
 
 import exception.*;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -22,6 +20,7 @@ public class GlobalControllerExceptionHandler {
 
 
     @ExceptionHandler(UserBlockedException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
     public ModelAndView blockUserHandler(HttpServletRequest request) {
         LOG.warn("Blocked. Can`t login");
         request.setAttribute("error", "You are blocked.");
@@ -33,7 +32,6 @@ public class GlobalControllerExceptionHandler {
 
     @ExceptionHandler(WrongEmailOrPasswordException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    @Order(Ordered.HIGHEST_PRECEDENCE)
     public ModelAndView wrongEmailOrPasswordHandler(HttpServletRequest request)  {
         LOG.warn("Wrong email or password");
         ResourceBundle rb = ResourceBundle.getBundle("resource", new Locale((String) request.getSession().getAttribute("language")));
@@ -53,6 +51,7 @@ public class GlobalControllerExceptionHandler {
     }
 
     @ExceptionHandler(EmptyParametersException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ModelAndView emptyParametersHandler(HttpServletRequest request)  {
         ModelAndView modelAndView = new ModelAndView();
         LOG.warn("Empty parameters");
@@ -63,6 +62,7 @@ public class GlobalControllerExceptionHandler {
     }
 
     @ExceptionHandler(SuchEmailExistException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
     public ModelAndView suchEmailExistHandler(HttpServletRequest request)  {
         ModelAndView modelAndView = new ModelAndView();
         LOG.warn("Such email exists");
@@ -73,6 +73,7 @@ public class GlobalControllerExceptionHandler {
     }
 
     @ExceptionHandler(SuchIdnExistException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
     public ModelAndView suchIdnExistHandler(HttpServletRequest request)  {
         ModelAndView modelAndView = new ModelAndView();
         LOG.warn("Such idn exists");
@@ -83,6 +84,7 @@ public class GlobalControllerExceptionHandler {
     }
 
     @ExceptionHandler(PasswordDontMatchException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ModelAndView passwordDontMatchHandler(HttpServletRequest request)  {
         ModelAndView modelAndView = new ModelAndView();
         LOG.warn("Passwords dont match");

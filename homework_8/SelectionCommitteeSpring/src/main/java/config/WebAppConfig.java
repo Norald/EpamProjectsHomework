@@ -12,7 +12,7 @@ import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan({"testing.controller", "model", "db", "pdf", "testing.service"})
+@ComponentScan({"controller", "model", "db", "pdf", "service"})
 public class WebAppConfig extends WebMvcConfigurerAdapter {
 
     @Override

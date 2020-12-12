@@ -1,4 +1,4 @@
-package testing.controller;
+package controller;
 
 import exception.*;
 import model.*;
@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import path.PathApp;
 import pdf.StatementWorker;
-import testing.service.FacultyService;
-import testing.service.UserService;
+import service.FacultyService;
+import service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

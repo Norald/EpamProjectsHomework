@@ -1,4 +1,4 @@
-package testing.service;
+package service;
 
 import db.dao.FacultyDao;
 import db.dao.UserDao;
@@ -19,7 +19,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import static testing.controller.AdminActionsController.getDateFromString;
+import static controller.AdminActionsController.getDateFromString;
 
 @Component
 public class FacultyService {

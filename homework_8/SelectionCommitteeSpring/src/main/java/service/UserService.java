@@ -1,4 +1,4 @@
-package testing.service;
+package service;
 
 import db.dao.FacultyDao;
 import db.dao.UserDao;

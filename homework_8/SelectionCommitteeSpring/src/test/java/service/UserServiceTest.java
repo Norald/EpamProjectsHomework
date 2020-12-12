@@ -1,4 +1,4 @@
-package testing.service;
+package service;
 
 import db.dao.FacultyDao;
 import db.dao.UserDao;
@@ -20,7 +20,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(MockitoJUnitRunner.Silent.class)
 public class UserServiceTest {
     private final UserDao userDao = Mockito.mock(UserDao.class);
     private final FacultyDao facultyDao = Mockito.mock(FacultyDao.class);
@@ -37,7 +37,9 @@ public class UserServiceTest {
 
     @Before
     public void init(){
-        user= new User();
+
+
+        user = new User();
         user.setEmail("dp260296pvm@gmail.com");
         user.setPassword("111111");
         user.setBlocked(false);
@@ -46,21 +48,21 @@ public class UserServiceTest {
         user.setUserRoleId(2);
 
         userDetailsEng = new UserDetails();
-        userDetailsEng.setName("asd");
-        userDetailsEng.setSurname("asd");
-        userDetailsEng.setPatronymic("asd");
-        userDetailsEng.setRegion("asd");
-        userDetailsEng.setCity("asd");
-        userDetailsEng.setSchoolName("asd");
+        userDetailsEng.setName("Name");
+        userDetailsEng.setSurname("Surname");
+        userDetailsEng.setPatronymic("Patronymic");
+        userDetailsEng.setRegion("Region");
+        userDetailsEng.setCity("City");
+        userDetailsEng.setSchoolName("School");
         userDetailsEng.setAverage_certificate(111);
 
         userDetailsUkr = new UserDetails();
-        userDetailsUkr.setName("фів");
-        userDetailsUkr.setSurname("фів");
-        userDetailsUkr.setPatronymic("фів");
-        userDetailsUkr.setRegion("фів");
-        userDetailsUkr.setCity("фів");
-        userDetailsUkr.setSchoolName("фів");
+        userDetailsUkr.setName("Ім`я");
+        userDetailsUkr.setSurname("Прізвище");
+        userDetailsUkr.setPatronymic("По-батькові");
+        userDetailsUkr.setRegion("Регіон");
+        userDetailsUkr.setCity("Місто");
+        userDetailsUkr.setSchoolName("Школа");
         userDetailsUkr.setAverage_certificate(111);
 
         subjectExam = new SubjectExam();
