@@ -15,9 +15,9 @@ Add the project to your repository with changes written below.
     * POST - adds Notification for given user to list  
     * GET - returns collection of notifications  
 
-## Order service
-* Rewrite `OrdersController.createNewOrder()` to use `FeignClient's` instead of `RestTeamplate`.
-* Add POST HTTP call in `OrdersController.createNewOrder()` to `notification` service using `FeignClient`
+## com.epam.orders2.Order service
+* Rewrite `com.epam.orders2.OrdersController.createNewOrder()` to use `FeignClient's` instead of `RestTeamplate`.
+* Add POST HTTP call in `com.epam.orders2.OrdersController.createNewOrder()` to `notification` service using `FeignClient`
 
 ## Success criteria
 As a homework-checker I should:
@@ -38,7 +38,7 @@ curl --url http://localhost:8080/orders \
      -H "Content-Type: application/json" \
      -d '{"userName": "{сreatedUserName}", "product": "{сreatedProductName}"}'
 ```
-* `OrdersController.class` in `orders` module should have no `RestTamplate` and should user Feign interfaces to make HTTP calls.
+* `com.epam.orders2.OrdersController.class` in `orders` module should have no `RestTamplate` and should user Feign interfaces to make HTTP calls.
 
 * Check is `notification` service have handled POST request
 ``` bash

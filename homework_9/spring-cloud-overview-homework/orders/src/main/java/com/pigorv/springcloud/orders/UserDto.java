@@ -9,6 +9,6 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDto {
+public class UserDto{
     private String name;
 }

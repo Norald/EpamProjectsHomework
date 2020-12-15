@@ -9,8 +9,7 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductDto {
+public class ProductDto{
     private String name;
     private Long quantity;
-
 }

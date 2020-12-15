@@ -34,7 +34,7 @@ Get user's products:
 curl -X GET GET http://localhost:8383/{сreatedUserName}/products
 ```
 
-## Order service
+## com.epam.orders2.Order service
 `cd orders` then run `mvn spring-boot:run`
 
 ### Use User service:

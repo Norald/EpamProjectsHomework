@@ -1,5 +1,6 @@
 server:
   port: 8282
+  max-http-header-size: 20480
 
 logging:
   level:

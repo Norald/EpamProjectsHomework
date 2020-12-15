@@ -15,6 +15,7 @@ zuul:
     notifications:
       path: /notifications/**
 
+
 ribbon:
   ReadTimeout: 10000
 

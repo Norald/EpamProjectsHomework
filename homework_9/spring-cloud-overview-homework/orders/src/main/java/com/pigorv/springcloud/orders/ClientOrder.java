@@ -1,6 +1,5 @@
 package com.pigorv.springcloud.orders;
 
-import feign.Headers;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
