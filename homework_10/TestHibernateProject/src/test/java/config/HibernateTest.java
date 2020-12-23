@@ -8,8 +8,11 @@ import com.homework.epam.dto.UserDto;
 import com.homework.epam.dto.UserResultDto;
 import com.homework.epam.entity.SubjectExam;
 import com.homework.epam.entity.User;
+import com.homework.epam.entity.UserDetails;
 import com.homework.epam.entity.UserResult;
 import com.homework.epam.service.UserService;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +21,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceContext;
 import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -39,6 +46,9 @@ public class HibernateTest {
     @Autowired
     UserDao userDao;
 
+    @Autowired
+    private SessionFactory sessionFactory;
+
     private User user;
 
     @Before
@@ -53,7 +63,7 @@ public class HibernateTest {
 
     @Test
     public void testCreateUserWithDao() {
-        User created = userDao.create(user.getEmail(), user.getIdn(), user.isBlocked(), user.getUserRoleId(), user.getPassword());
+        User created = userDao.save(user);
         Assert.assertEquals(created.getEmail(), user.getEmail());
     }
 
@@ -131,6 +141,101 @@ public class HibernateTest {
         userResult.setDateOfExam(new Date(System.currentTimeMillis()));
         
         userResultDao.save(userResult);
+
+    }
+
+
+    @Test
+    @Transactional
+    public void saveUserAndDetailsPM() {
+        Session session = null;
+        EntityTransaction transaction = null;
+        session = sessionFactory.openSession();
+        transaction = session.getTransaction();
+        transaction.begin();
+
+        User newUser = new User();
+        newUser.setEmail("testPM@gmail.com");
+        newUser.setPassword("13333123429");
+        newUser.setIdn(133332319l);
+        newUser.setBlocked(false);
+        newUser.setUserRoleId(1);
+        Set<UserResult> userResults = new HashSet<>();
+        newUser.setUserResults(userResults);
+
+        UserDetails userDetails = new UserDetails();
+        userDetails.setName("Name");
+        userDetails.setSurname("Surname");
+        userDetails.setPatronymic("Patronymic");
+        userDetails.setCity("City");
+        userDetails.setRegion("Region");
+        userDetails.setSchoolName("School name");
+        userDetails.setAverageCertificate(200);
+        userDetails.setName_ua("Імя");
+        userDetails.setSurname_ua("Прізвище");
+        userDetails.setPatronymic_ua("По батькові");
+        userDetails.setCity_ua("Місто");
+        userDetails.setRegion_ua("Регіон");
+        userDetails.setSurname_ua("Назва школи");
+        userDetails.setUser(newUser);
+
+        session.persist(userDetails);
+        transaction.commit();
+        session.close();
+    }
+
+    @Test
+    @Transactional
+    public void getUserAndDetailsPM() {
+        Session session = null;
+        EntityTransaction transaction = null;
+        session = sessionFactory.openSession();
+        transaction = session.getTransaction();
+        transaction.begin();
+        int userId = 78;
+        User user = session.get(User.class, userId);
+        session.close();
+        Assert.assertEquals(user.getEmail(), userDao.get(userId).getEmail());
+    }
+
+    @Test
+    @Transactional
+    public void deleteUserAndDetailsPM() {
+        Session session = null;
+        EntityTransaction transaction = null;
+        session = sessionFactory.openSession();
+        transaction = session.getTransaction();
+        transaction.begin();
+        User newUser = new User();
+        newUser.setEmail("testPM1@gmail.com");
+        newUser.setPassword("13331113429");
+        newUser.setIdn(133331119l);
+        newUser.setBlocked(false);
+        newUser.setUserRoleId(1);
+        Set<UserResult> userResults = new HashSet<>();
+        newUser.setUserResults(userResults);
+
+        UserDetails userDetails = new UserDetails();
+        userDetails.setName("Name1");
+        userDetails.setSurname("Surname1");
+        userDetails.setPatronymic("Patronymic1");
+        userDetails.setCity("City1");
+        userDetails.setRegion("Region1");
+        userDetails.setSchoolName("School name1");
+        userDetails.setAverageCertificate(210);
+        userDetails.setName_ua("Імя1");
+        userDetails.setSurname_ua("Прізвище1");
+        userDetails.setPatronymic_ua("По батькові1");
+        userDetails.setCity_ua("Міст1о");
+        userDetails.setRegion_ua("Регіон1");
+        userDetails.setSurname_ua("Назва школ1и");
+        userDetails.setUser(newUser);
+
+        session.persist(userDetails);
+        transaction.commit();
+        transaction.begin();
+        session.delete(userDetails);
+        transaction.commit();
 
     }
 

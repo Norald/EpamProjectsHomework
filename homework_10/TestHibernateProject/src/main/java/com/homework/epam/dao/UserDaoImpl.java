@@ -19,24 +19,13 @@ public class UserDaoImpl implements UserDao {
     @Autowired
     private SessionFactory sessionFactory;
 
-    @Override
-    @Transactional
-    public User create(String email, Long idn, boolean blocked, Integer userRoleId, String password) {
-        User user = new User();
-        user.setEmail(email);
-        user.setIdn(idn);
-        user.setBlocked(blocked);
-        user.setUserRoleId(userRoleId);
-        user.setPassword(password);
-        sessionFactory.getCurrentSession().save(user);
-        return user;
-    }
 
     @Transactional
     @Override
-    public void save(User user) {
+    public User save(User user) {
         Session session = sessionFactory.getCurrentSession();
         session.save(user);
+        return user;
     }
 
     @Transactional
@@ -53,8 +42,7 @@ public class UserDaoImpl implements UserDao {
         Session session = sessionFactory.getCurrentSession();
         Query query=session.createQuery("from User where email= :email");
         query.setParameter("email", email);
-        List list = ((org.hibernate.query.Query<?>) query).list();
-        User user= (User) list.get(0);
+        User user = (User)query.getSingleResult();
         System.out.println(user);
         return Objects.requireNonNull(user, "User not found by email: " + email);
     }
