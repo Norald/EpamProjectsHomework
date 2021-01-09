@@ -1,0 +1,45 @@
+version: '3.7'
+
+networks:
+  mynet:
+    driver: bridge
+
+volumes:
+  data:
+
+services:
+
+  database:
+    image: mysql:8.0.22
+    ports:
+    - 3305:3305
+    volumes:
+    - data:/var/lib/mysql
+    networks:
+    - mynet
+    container_name: super_mysql
+    hostname: database
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_USER: user
+      MYSQL_PASSWORD: secret
+      MYSQL_DATABASE: iinspection_board
+
+  webapp:
+    build: .
+    ports:
+      - 8080:8080
+    networks:
+      - mynet
+    restart: always
+    container_name: spring_boot_webapp
+    hostname: webservice
+    depends_on:
+      - database
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8090/actuator/health" ]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
