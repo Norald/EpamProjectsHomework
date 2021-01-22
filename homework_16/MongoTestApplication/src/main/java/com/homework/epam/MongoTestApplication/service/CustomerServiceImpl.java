@@ -16,12 +16,12 @@ public class CustomerServiceImpl implements CustomerService{
     private CustomerRepository repository;
 
     @Override
-    public Customer findCustomerById(Long id) {
+    public Customer findById(Long id) {
         return repository.findCustomerById(id);
     }
 
     @Override
-    public Customer findCustomerByFirstNameAndLastName(String firstName, String lastName) {
+    public Customer findByFirstNameAndLastName(String firstName, String lastName) {
         return repository.findCustomerByFirstNameAndLastName(firstName, lastName);
     }
 
@@ -36,17 +36,17 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
-    public List<Customer> findCustomerByAddress(Address address) {
+    public List<Customer> findByAddress(Address address) {
         return repository.findCustomerByAddress(address);
     }
 
     @Override
-    public List<Customer> findCustomerByCardNumber(int cardNumber) {
+    public List<Customer> findByCardNumber(int cardNumber) {
         return repository.findCustomerByCardNumber(cardNumber);
     }
 
     @Override
-    public List<Customer> findCustomerByExpiredCards() {
+    public List<Customer> findByExpiredCards() {
         return repository.findCustomerByExpiredCards();
     }
 }

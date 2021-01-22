@@ -7,11 +7,11 @@ import com.homework.epam.MongoTestApplication.model.Customer;
 import java.util.List;
 
 public interface CustomerService {
-    Customer findCustomerById(Long id);
-    Customer findCustomerByFirstNameAndLastName(String firstName, String lastName);
+    Customer findById(Long id);
+    Customer findByFirstNameAndLastName(String firstName, String lastName);
     long insertCustomer(Customer customer);
     long updateCustomer(String id, String firstName, String lastName, List<Address> addressesList, List<Account> accountsList);
-    List<Customer> findCustomerByAddress(Address address);
-    List<Customer> findCustomerByCardNumber(int cardNumber);
-    List<Customer> findCustomerByExpiredCards();
+    List<Customer> findByAddress(Address address);
+    List<Customer> findByCardNumber(int cardNumber);
+    List<Customer> findByExpiredCards();
 }

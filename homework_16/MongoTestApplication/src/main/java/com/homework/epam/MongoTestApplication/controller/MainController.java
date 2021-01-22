@@ -19,32 +19,32 @@ public class MainController {
 
     @GetMapping(value = "/customer/byId/{customerId}")
     public Customer getUserById(@PathVariable long customerId) {
-        Customer customer = service.findCustomerById(customerId);
+        Customer customer = service.findById(customerId);
         return customer;
     }
 
     @GetMapping(value = "/customer/byFirstAndLastName")
     public Customer getUserByFirstNameAndLastName(@RequestParam(name = "firstName") String firstName, @RequestParam(name = "lastName") String lastName) {
-        Customer customer = service.findCustomerByFirstNameAndLastName(firstName, lastName);
+        Customer customer = service.findByFirstNameAndLastName(firstName, lastName);
         return customer;
     }
 
     @PostMapping(value = "/customer/byAddress")
     @ResponseStatus(HttpStatus.OK)
     public List<Customer> getUserByAddress(@RequestBody Address address) {
-        List<Customer> customerList = service.findCustomerByAddress(address);
+        List<Customer> customerList = service.findByAddress(address);
         return customerList;
     }
 
     @GetMapping(value = "/customer/byCardNumber")
     public List<Customer> getUserByCardNumber(@RequestParam(name = "cardNumber") int cardNumber) {
-        List<Customer> customerList = service.findCustomerByCardNumber(cardNumber);
+        List<Customer> customerList = service.findByCardNumber(cardNumber);
         return customerList;
     }
 
     @GetMapping(value = "/customer/byExpiredCard")
     public List<Customer> getUserByExpiredCard() {
-        List<Customer> customerList = service.findCustomerByExpiredCards();
+        List<Customer> customerList = service.findByExpiredCards();
         return customerList;
     }
 

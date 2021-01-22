@@ -9,6 +9,9 @@ import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration;
+import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -20,6 +23,7 @@ import java.util.List;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
+@EnableAutoConfiguration(exclude = {MongoAutoConfiguration.class, MongoDataAutoConfiguration.class})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 class MongoTestApplicationTests {
 
@@ -49,7 +53,7 @@ class MongoTestApplicationTests {
 		customer.setLastName("lastname");
 		service.insertCustomer(customer);
 
-		Customer customerFromBd = service.findCustomerByFirstNameAndLastName("firstname","lastname");
+		Customer customerFromBd = service.findByFirstNameAndLastName("firstname","lastname");
 		Assert.assertEquals(customer.getFirstName(), customerFromBd.getFirstName());
 	}
 
@@ -70,7 +74,7 @@ class MongoTestApplicationTests {
 
 		service.insertCustomer(customer);
 
-		List<Customer> customerDBList = service.findCustomerByAddress(address);
+		List<Customer> customerDBList = service.findByAddress(address);
 		Assert.assertEquals(customer.getFirstName(), customerDBList.get(0).getFirstName());
 	}
 
@@ -90,7 +94,7 @@ class MongoTestApplicationTests {
 
 		service.insertCustomer(customer);
 
-		List<Customer> customerDBList = service.findCustomerByCardNumber(112233);
+		List<Customer> customerDBList = service.findByCardNumber(112233);
 		Assert.assertEquals(customer.getFirstName(), customerDBList.get(0).getFirstName());
 	}
 
@@ -110,7 +114,7 @@ class MongoTestApplicationTests {
 
 		service.insertCustomer(customer);
 
-		List<Customer> customerDBList = service.findCustomerByExpiredCards();
+		List<Customer> customerDBList = service.findByExpiredCards();
 		Assert.assertEquals(customer.getFirstName(), customerDBList.get(0).getFirstName());
 	}
 }
